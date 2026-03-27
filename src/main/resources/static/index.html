@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack & Queue Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Data Structure Visualizer</h1>
+        <p>ITC C202 Midterm Case Study</p>
+    </header>
+
+    <main>
+        <div class="tabs">
+            <button class="tab-btn active" data-target="stack-section">Stack (LIFO)</button>
+            <button class="tab-btn" data-target="queue-section">Queue (FIFO)</button>
+        </div>
+
+        <!-- Stack Section -->
+        <section id="stack-section" class="visualizer-container">
+            <div class="controls">
+                <div class="init-group">
+                    <input type="number" id="stack-size" placeholder="Array Size" min="1" max="10">
+                    <button onclick="initStack()">Initialize Stack</button>
+                </div>
+                <hr>
+                <div class="op-group" id="stack-ops" style="display: none;">
+                    <input type="number" id="stack-input" placeholder="Value">
+                    <button onclick="pushStack()">Push</button>
+                    <button onclick="popStack()">Pop</button>
+                    <button onclick="peekStack()">Peek</button>
+                </div>
+            </div>
+            
+            <div class="visualizer-display">
+                <div id="stack-visual" class="array-container stack-visual">
+                    <!-- Elements will be injected here -->
+                </div>
+                <div id="stack-status" class="status-box"></div>
+            </div>
+        </section>
+
+        <!-- Queue Section -->
+        <section id="queue-section" class="visualizer-container" style="display: none;">
+            <div class="controls">
+                <div class="init-group">
+                    <input type="number" id="queue-size" placeholder="Array Size" min="1" max="10">
+                    <button onclick="initQueue()">Initialize Queue</button>
+                </div>
+                <hr>
+                <div class="op-group" id="queue-ops" style="display: none;">
+                    <input type="number" id="queue-input" placeholder="Value">
+                    <button onclick="enqueueQueue()">Enqueue</button>
+                    <button onclick="dequeueQueue()">Dequeue</button>
+                    <button onclick="peekQueue()">Peek</button>
+                </div>
+            </div>
+
+            <div class="visualizer-display">
+                <div id="queue-visual" class="array-container queue-visual">
+                    <!-- Elements will be injected here -->
+                </div>
+                <div id="queue-status" class="status-box"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
