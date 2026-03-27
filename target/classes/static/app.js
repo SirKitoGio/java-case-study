@@ -43,7 +43,7 @@ async function updateStackVisual() {
         const cell = document.createElement('div');
         if (i < state.elements.length) {
             cell.className = 'cell';
-            cell.textContent = state.elements[i];
+            cell.innerHTML = `<span class="cell-text">${state.elements[i]}</span>`;
             if (i === state.top) {
                 cell.innerHTML += '<span class="pointer">← Top</span>';
             }
@@ -121,7 +121,7 @@ async function updateQueueVisual() {
         const cell = document.createElement('div');
         if (i < state.size) {
             cell.className = 'cell';
-            cell.textContent = state.elements[i];
+            cell.innerHTML = `<span class="cell-text">${state.elements[i]}</span>`;
             
             let pointers = [];
             if (i === 0) pointers.push('Front');
