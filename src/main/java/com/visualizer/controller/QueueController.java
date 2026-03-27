@@ -51,8 +51,6 @@ public class QueueController {
         state.put("elements", queue.getElements());
         state.put("rawArray", queue.getRawArray());
         state.put("capacity", queue.getCapacity());
-        state.put("front", queue.getFront());
-        state.put("rear", queue.getRear());
         state.put("size", queue.getSize());
         state.put("isEmpty", queue.isEmpty());
         state.put("isFull", queue.isFull());

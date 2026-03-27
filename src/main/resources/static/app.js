@@ -21,6 +21,7 @@ function showStatus(id, msg, type = 'success') {
 async function initStack() {
     const size = document.getElementById('stack-size').value;
     if (!size) return showStatus('stack-status', 'Enter a size', 'error');
+    if (size > 20) return showStatus('stack-status', 'Max size is 20 for visualization', 'error');
     
     try {
         const res = await fetch(`/api/stack/init/${size}`, { method: 'POST' });
@@ -97,6 +98,7 @@ async function peekStack() {
 async function initQueue() {
     const size = document.getElementById('queue-size').value;
     if (!size) return showStatus('queue-status', 'Enter a size', 'error');
+    if (size > 20) return showStatus('queue-status', 'Max size is 20 for visualization', 'error');
     
     try {
         const res = await fetch(`/api/queue/init/${size}`, { method: 'POST' });
@@ -114,36 +116,23 @@ async function updateQueueVisual() {
     const visual = document.getElementById('queue-visual');
     visual.innerHTML = '';
 
-    // Show the raw array state to visualize circular buffer behavior
     for (let i = 0; i < state.capacity; i++) {
         const cell = document.createElement('div');
-        const isOccupied = isIndexOccupied(i, state.front, state.rear, state.size, state.capacity);
-        
-        if (isOccupied) {
+        if (i < state.size) {
             cell.className = 'cell';
-            cell.textContent = state.rawArray[i];
+            cell.textContent = state.elements[i];
+            
+            let pointers = [];
+            if (i === 0) pointers.push('Front');
+            if (i === state.size - 1) pointers.push('Rear');
+            
+            if (pointers.length > 0) {
+                cell.innerHTML += `<span class="pointer">↑ ${pointers.join(' & ')}</span>`;
+            }
         } else {
             cell.className = 'cell-empty';
         }
-
-        let pointers = [];
-        if (i === state.front && state.size > 0) pointers.push('Front');
-        if (i === state.rear && state.size > 0) pointers.push('Rear');
-        
-        if (pointers.length > 0) {
-            cell.innerHTML += `<span class="pointer">↑ ${pointers.join(' & ')}</span>`;
-        }
-        
         visual.appendChild(cell);
-    }
-}
-
-function isIndexOccupied(i, front, rear, size, capacity) {
-    if (size === 0) return false;
-    if (front <= rear) {
-        return i >= front && i <= rear;
-    } else {
-        return i >= front || i <= rear;
     }
 }
 

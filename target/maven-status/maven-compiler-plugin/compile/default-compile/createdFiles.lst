@@ -1,5 +1,9 @@
+com/visualizer/BasicCaseStudy$Stack.class
 com/visualizer/model/StackData.class
 com/visualizer/controller/StackController.class
+com/visualizer/BasicCaseStudy.class
 com/visualizer/Application.class
 com/visualizer/model/QueueData.class
+com/visualizer/BasicCaseStudy$Queue.class
+com/visualizer/controller/GlobalExceptionHandler.class
 com/visualizer/controller/QueueController.class
