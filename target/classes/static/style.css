@@ -106,14 +106,15 @@ button:hover {
 .array-container {
     display: flex;
     gap: 12px;
-    min-height: 150px;
-    padding: 20px 80px 50px 20px;
+    min-height: 200px;
+    padding: 40px;
     border: 2px dashed #ccc;
     border-radius: 8px;
-    align-items: flex-end;
+    align-items: flex-start;
     overflow: auto;
     max-width: 100%;
     box-sizing: border-box;
+    background: #fcfcfc;
 }
 
 .cell {
@@ -153,19 +154,21 @@ button:hover {
 .pointer {
     position: absolute;
     color: var(--pointer);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     white-space: nowrap;
-    font-weight: bold;
+    font-weight: 800;
+    z-index: 10;
+    padding: 2px 4px;
 }
 
 .stack-visual .pointer {
-    left: 110%;
+    left: 105%;
     top: 50%;
     transform: translateY(-50%);
 }
 
 .queue-visual .pointer {
-    bottom: -30px;
+    top: 85px; /* Directly below the 80px cell */
     left: 50%;
     transform: translateX(-50%);
 }
@@ -197,11 +200,13 @@ button:hover {
 /* Specific Layouts */
 .stack-visual {
     flex-direction: column-reverse;
-    max-height: 400px;
+    max-height: 500px;
     justify-content: flex-start;
     align-items: center;
+    padding-right: 100px;
 }
 
 .queue-visual {
     flex-direction: row;
+    padding-bottom: 60px;
 }
