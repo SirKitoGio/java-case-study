@@ -106,8 +106,8 @@ button:hover {
 .array-container {
     display: flex;
     gap: 10px;
-    min-height: 100px;
-    padding: 20px;
+    min-height: 120px;
+    padding: 20px 60px 40px 20px;
     border: 2px dashed #ccc;
     border-radius: 8px;
     align-items: flex-end;
