@@ -2,12 +2,16 @@ package com.visualizer.model;
 
 public class QueueData {
     private int[] array;
+    private int front;
+    private int rear;
     private int size;
     private int capacity;
 
     public QueueData(int capacity) {
         this.capacity = capacity;
         this.array = new int[capacity];
+        this.front = 0;
+        this.rear = -1;
         this.size = 0;
     }
 
@@ -15,7 +19,8 @@ public class QueueData {
         if (isFull()) {
             throw new RuntimeException("Queue Full");
         }
-        array[size] = value;
+        rear = (rear + 1) % capacity;
+        array[rear] = value;
         size++;
     }
 
@@ -23,11 +28,8 @@ public class QueueData {
         if (isEmpty()) {
             throw new RuntimeException("Queue Empty");
         }
-        int value = array[0];
-        // Shift elements to the left
-        for (int i = 0; i < size - 1; i++) {
-            array[i] = array[i + 1];
-        }
+        int value = array[front];
+        front = (front + 1) % capacity;
         size--;
         return value;
     }
@@ -36,7 +38,7 @@ public class QueueData {
         if (isEmpty()) {
             throw new RuntimeException("Queue is Empty");
         }
-        return array[0];
+        return array[front];
     }
 
     public boolean isEmpty() {
@@ -49,12 +51,22 @@ public class QueueData {
 
     public int[] getElements() {
         int[] result = new int[size];
-        System.arraycopy(array, 0, result, 0, size);
+        for (int i = 0; i < size; i++) {
+            result[i] = array[(front + i) % capacity];
+        }
         return result;
     }
 
     public int getCapacity() {
         return capacity;
+    }
+
+    public int getFront() {
+        return front;
+    }
+
+    public int getRear() {
+        return rear;
     }
 
     public int getSize() {

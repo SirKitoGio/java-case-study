@@ -119,21 +119,33 @@ async function updateQueueVisual() {
 
     for (let i = 0; i < state.capacity; i++) {
         const cell = document.createElement('div');
-        if (i < state.size) {
+        const isOccupied = isIndexOccupied(i, state.front, state.rear, state.size, state.capacity);
+        
+        if (isOccupied) {
             cell.className = 'cell';
-            cell.innerHTML = `<span class="cell-text">${state.elements[i]}</span>`;
-            
-            let pointers = [];
-            if (i === 0) pointers.push('Front');
-            if (i === state.size - 1) pointers.push('Rear');
-            
-            if (pointers.length > 0) {
-                cell.innerHTML += `<span class="pointer">↑ ${pointers.join(' & ')}</span>`;
-            }
+            cell.innerHTML = `<span class="cell-text">${state.rawArray[i]}</span>`;
         } else {
             cell.className = 'cell-empty';
         }
+
+        let pointers = [];
+        if (i === state.front && state.size > 0) pointers.push('Front');
+        if (i === state.rear && state.size > 0) pointers.push('Rear');
+        
+        if (pointers.length > 0) {
+            cell.innerHTML += `<span class="pointer">↑ ${pointers.join(' & ')}</span>`;
+        }
+        
         visual.appendChild(cell);
+    }
+}
+
+function isIndexOccupied(i, front, rear, size, capacity) {
+    if (size === 0) return false;
+    if (front <= rear) {
+        return i >= front && i <= rear;
+    } else {
+        return i >= front || i <= rear;
     }
 }
 
