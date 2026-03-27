@@ -57,6 +57,7 @@ async function updateStackVisual() {
 async function pushStack() {
     const val = document.getElementById('stack-input').value;
     if (!val) return;
+    if (val.length > 6) return showStatus('stack-status', 'Max 6 digits allowed', 'error');
     try {
         const res = await fetch(`/api/stack/push/${val}`, { method: 'POST' });
         const data = await res.json();
@@ -139,6 +140,7 @@ async function updateQueueVisual() {
 async function enqueueQueue() {
     const val = document.getElementById('queue-input').value;
     if (!val) return;
+    if (val.length > 6) return showStatus('queue-status', 'Max 6 digits allowed', 'error');
     try {
         const res = await fetch(`/api/queue/enqueue/${val}`, { method: 'POST' });
         const data = await res.json();
