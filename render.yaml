@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: stack-queue-visualizer
+    env: java
+    plan: free
+    region: singapore # You can change this to your closest region (e.g., oregon, frankfurt)
+    buildCommand: "./mvnw clean install -DskipTests"
+    startCommand: "java -jar target/visualizer-0.0.1-SNAPSHOT.jar"
+    envVars:
+      - key: JAVA_VERSION
+        value: 17
+      - key: SERVER_PORT
+        value: 10000 # Render's default web port
