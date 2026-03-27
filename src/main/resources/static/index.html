@@ -27,7 +27,7 @@
                 </div>
                 <hr>
                 <div class="op-group" id="stack-ops" style="display: none;">
-                    <input type="number" id="stack-input" placeholder="Value">
+                    <input type="number" id="stack-input" placeholder="Value" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);">
                     <button onclick="pushStack()">Push</button>
                     <button onclick="popStack()">Pop</button>
                     <button onclick="peekStack()">Peek</button>
@@ -51,7 +51,7 @@
                 </div>
                 <hr>
                 <div class="op-group" id="queue-ops" style="display: none;">
-                    <input type="number" id="queue-input" placeholder="Value">
+                    <input type="number" id="queue-input" placeholder="Value" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);">
                     <button onclick="enqueueQueue()">Enqueue</button>
                     <button onclick="dequeueQueue()">Dequeue</button>
                     <button onclick="peekQueue()">Peek</button>
