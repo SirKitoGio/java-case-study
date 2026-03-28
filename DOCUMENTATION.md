@@ -13,11 +13,11 @@ The application uses a **Decoupled Architecture**:
 
 ## 3. File System Structure & Responsibilities
 
-### 📂 Root Directory
+### Root Directory
 *   `pom.xml`: Maven configuration file containing project dependencies (Spring Boot Web, Test).
 *   `DOCUMENTATION.md`: This document explaining the system.
 
-### 📂 Backend: `src/main/java/com/visualizer/`
+### Backend: `src/main/java/com/visualizer/`
 *   `Application.java`: The entry point that starts the Spring Boot server.
 *   **`model/`**: Contains the core "Engine" of the data structures.
     *   `StackData.java`: Implements a manual integer array with a `top` pointer. Handles `push`, `pop`, `peek`, and boundary validation (Overflow/Underflow).
@@ -27,7 +27,7 @@ The application uses a **Decoupled Architecture**:
     *   `QueueController.java`: Exposes endpoints like `/api/queue/enqueue` and `/api/queue/state`.
     *   `GlobalExceptionHandler.java`: Catches logic errors (like a Full Queue) and sends a clean error message back to the UI.
 
-### 📂 Frontend: `src/main/resources/static/`
+### Frontend: `src/main/resources/static/`
 *   `index.html`: The user interface. Contains the tabbed layout and the input forms.
 *   `style.css`: The "Paint" of the project. Defines the vertical stack layout, the horizontal queue layout, and the dynamic animations for elements.
 *   `app.js`: The "Brain" of the frontend. It fetches data from the Java backend, loops through the returned arrays, and creates the HTML elements (cells) you see on screen.
