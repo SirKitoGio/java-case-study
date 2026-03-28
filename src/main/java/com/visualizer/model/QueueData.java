@@ -2,7 +2,6 @@ package com.visualizer.model;
 
 public class QueueData {
     private int[] array;
-    private int front;
     private int rear;
     private int size;
     private int capacity;
@@ -10,7 +9,6 @@ public class QueueData {
     public QueueData(int capacity) {
         this.capacity = capacity;
         this.array = new int[capacity];
-        this.front = 0;
         this.rear = -1;
         this.size = 0;
     }
@@ -19,7 +17,7 @@ public class QueueData {
         if (isFull()) {
             throw new RuntimeException("Queue Full");
         }
-        rear = (rear + 1) % capacity;
+        rear++;
         array[rear] = value;
         size++;
     }
@@ -28,8 +26,15 @@ public class QueueData {
         if (isEmpty()) {
             throw new RuntimeException("Queue Empty");
         }
-        int value = array[front];
-        front = (front + 1) % capacity;
+        int value = array[0];
+        // Shift elements to the left
+        for (int i = 0; i < size - 1; i++) {
+            array[i] = array[i + 1];
+        }
+        // Clear the last element that was shifted
+        array[size - 1] = 0;
+        
+        rear--;
         size--;
         return value;
     }
@@ -38,7 +43,7 @@ public class QueueData {
         if (isEmpty()) {
             throw new RuntimeException("Queue is Empty");
         }
-        return array[front];
+        return array[0];
     }
 
     public boolean isEmpty() {
@@ -52,7 +57,7 @@ public class QueueData {
     public int[] getElements() {
         int[] result = new int[size];
         for (int i = 0; i < size; i++) {
-            result[i] = array[(front + i) % capacity];
+            result[i] = array[i];
         }
         return result;
     }
@@ -62,7 +67,7 @@ public class QueueData {
     }
 
     public int getFront() {
-        return front;
+        return 0; // Front is always at index 0 in a shifting linear queue
     }
 
     public int getRear() {

@@ -330,12 +330,11 @@ public class BasicCaseStudy {
     /* =================
        This is the blueprint for our Queue data structure.
        A queue works like a line at a store: First In, First Out (FIFO).
-       This specific implementation is a "Circular Queue" to reuse empty spaces.
+       This specific implementation is a "Shifting Linear Queue" 
+       where items move to the front after each dequeue.
        ================= */
     static class Queue {
         private int[] arr;
-        // 'front' tracks where the line starts (where to dequeue)
-        private int front;
         // 'rear' tracks the end of the line (where to enqueue)
         private int rear;
         // 'size' tracks how many actual items are in the queue right now
@@ -345,45 +344,48 @@ public class BasicCaseStudy {
 
         /* =================
            Constructor: Sets up the empty queue.
-           'front' starts at 0. 'rear' starts at -1. 'size' is 0.
+           'rear' starts at -1. 'size' is 0.
            ================= */
         public Queue(int size) {
             this.capacity = size;
             this.arr = new int[size];
-            this.front = 0;
             this.size = 0;
             this.rear = -1;
         }
 
         /* =================
            ENQUEUE: Adds a number 'x' to the back of the line.
-           Because it's circular, we use '% capacity' (modulo).
-           If capacity is 5 and rear is 4, (4+1)%5 = 0. It wraps around to the beginning!
-           Then we save 'x' to that index and increase 'size' by 1.
+           We simply increment 'rear' and place the number there.
            ================= */
         public void enqueue(int x) {
-            rear = (rear + 1) % capacity;
+            rear++;
             arr[rear] = x;
             size++;
         }
 
         /* =================
-           DEQUEUE: Grabs the number at the 'front' index.
-           Then it moves 'front' up by 1 (again using modulo to wrap around if needed).
-           It reduces 'size' by 1 and returns the number we grabbed.
+           DEQUEUE: Grabs the first number (at index 0).
+           Then it shifts all remaining items one spot to the left.
+           It reduces 'size' by 1 and 'rear' by 1.
            ================= */
         public int dequeue() {
-            int x = arr[front];
-            front = (front + 1) % capacity;
+            int x = arr[0];
+            for (int i = 0; i < size - 1; i++) {
+                arr[i] = arr[i + 1];
+            }
+            // Clear the last element for visualization
+            arr[size - 1] = 0;
+            
+            rear--;
             size--;
             return x;
         }
 
         /* =================
-           PEEK: Returns the number at the front of the line without removing it.
+           PEEK: Returns the number at the front (always index 0).
            ================= */
         public int peek() {
-            return arr[front];
+            return arr[0];
         }
 
         /* =================
@@ -398,28 +400,13 @@ public class BasicCaseStudy {
         }
 
         /* =================
-           DISPLAY: Prints the queue visually. This is slightly complex because 
-           the queue wraps around in a circle.
-           It loops through all array slots. We use a boolean 'isActive' to see if 
-           the current slot 'i' holds a real number in our line.
-           - If front <= rear: It's a normal line. Any slot between them is active.
-           - If front > rear: The line wrapped around! Slots are active if they are 
-             at the end of the array OR the beginning of the array.
-           If active, print the number. Otherwise, print "_".
+           DISPLAY: Prints the queue visually. Since it's linear and shifts,
+           we just print items from index 0 up to 'size'.
            ================= */
         public void display() {
             System.out.print("Queue (Array view): [");
             for (int i = 0; i < capacity; i++) {
-                boolean isActive = false;
-                if (size > 0) {
-                    if (front <= rear) {
-                        isActive = (i >= front && i <= rear);
-                    } else {
-                        isActive = (i >= front || i <= rear);
-                    }
-                }
-                
-                if (isActive) {
+                if (i < size) {
                     System.out.print(arr[i]);
                 } else {
                     System.out.print("_");
